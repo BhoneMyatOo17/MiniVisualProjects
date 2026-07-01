@@ -8,85 +8,115 @@
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* From Uiverse.io by cssbuttons-io */
-    .duobtn {
-      appearance: button;
-      background-color: #adadad;
-      border: solid transparent;
-      border-radius: 16px;
-      border-width: 0 0 4px;
-      box-sizing: border-box;
-      color: #333333;
-      cursor: pointer;
-      display: inline-block;
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: .8px;
-      line-height: 20px;
-      margin: 0;
-      outline: none;
-      overflow: visible;
-      padding: 13px 19px;
-      text-align: center;
-      text-transform: uppercase;
-      touch-action: manipulation;
-      transform: translateZ(0);
-      transition: filter .2s;
-      user-select: none;
-      -webkit-user-select: none;
-      vertical-align: middle;
-      white-space: nowrap;
-    }
-
-    .duobtn:after {
-      background-clip: padding-box;
-      background-color: #e6e6e6;
-      border: solid transparent;
-      border-radius: 16px;
-      border-width: 0 0 4px;
-      bottom: -4px;
-      content: "";
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: 0;
-      z-index: -1;
-    }
-
-    .duobtn:main,
-    .duobtn:focus {
-      user-select: auto;
-    }
-
-    .duobtn:hover:not(:disabled) {
-      filter: brightness(0.9);
-    }
-
-    .duobtn:disabled {
-      cursor: auto;
-    }
-
-    .duobtn:active:after {
-      border-width: 0 0 0px;
-    }
-
-    .duobtn:active {
-      padding-bottom: 10px;
+    .btn {
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin: 10px;
+      min-width: 150px;
     }
   </style>
 </head>
 
 <body class="h-screen overflow-hidden w-full flex justify-center">
-  <div
+  <div id="card"
     class="w-4xl my-15 bg-slate-100 flex justify-center items-center flex-col rounded-4xl shadow-xl border-4 border-slate-200">
-    <div class="mb-25 text-4xl font-medium text-slate-800">Give me a color that starts with the letter M</div>
-    <div class="w-full flex justify-center gap-4">
-      <button class="duobtn m-6 min-w-[120px]">Mlue</button>
-      <button class="duobtn m-6 min-w-[120px]">Magenta</button>
-      <button class="duobtn m-6 min-w-[120px]">Mpurple</button>
-      <button class="duobtn m-6 min-w-[120px]">Mark</button>
+    <div class="mb-7 text-4xl font-medium text-slate-800" id="question"></div>
+    <p id="message" class="mb-20"></p>
+    <div class="w-full flex justify-center gap-4" id="buttons">
+
     </div>
 
+  </div>
+  <script>
+    let currentIndex = 0
+    const question = document.getElementById('question')
+    const buttonContainer = document.getElementById('buttons')
+    const message = document.getElementById('message')
+    const card = document.getElementById('card')
+    const questions = [
+      {
+        text: "Give me a color that starts with the letter M",
+        options: [
+          { label: "Mlue", isCorrect: true },
+          { label: "Magenta", isCorrect: false },
+          { label: "Magnet", isCorrect: false },
+          { label: "Mark", isCorrect: false }
+        ]
+      },
+      {
+        text: "Which adds an element to the end of an array?",
+        options: [
+          { label: ".push()", isCorrect: true },
+          { label: ".pop()", isCorrect: false },
+          { label: ".shift()", isCorrect: false },
+          { label: ".append()", isCorrect: false }
+        ]
+      },
+      {
+        text: "What does === check that == does not?",
+        options: [
+          { label: "Scope", isCorrect: false },
+          { label: "Value", isCorrect: false },
+          { label: "Type ", isCorrect: true },
+          { label: "Length", isCorrect: false }
+        ]
+      },
+      {
+        text: "What is the output of typeof null?",
+        options: [
+          { label: "null", isCorrect: false },
+          { label: "object", isCorrect: true },
+          { label: "undefined", isCorrect: false },
+          { label: "boolean", isCorrect: false }
+        ]
+      },
+      {
+        text: "That's all I have",
+
+      }
+    ]
+    function renderQuestion() {
+      question.innerText = questions[currentIndex].text
+      buttonContainer.innerHTML = ""
+      message.innerHTML = ""
+      card.classList.replace('bg-green-100', 'bg-slate-100')
+      card.classList.replace('border-green-200', 'border-slate-200')
+      for (let i = 0; i < questions[currentIndex].options.length; i++) {
+        const option = questions[currentIndex].options[i]
+        const button = document.createElement('button')
+        button.innerText = option.label
+        button.dataset.isCorrect = option.isCorrect
+        button.classList.add('btn', 'hover:scale-110', 'transition-all', 'duration-200', 'cursor-pointer', 'active:scale-98', 'bg-slate-300')
+        button.addEventListener('click', () => {
+          checkAnswer(button)
+        })
+        buttonContainer.appendChild(button)
+      }
+
+    }
+    function checkAnswer(button) {
+
+      if (button.dataset.isCorrect === "true") {
+        button.classList.replace('bg-slate-300', 'bg-green-300')
+        card.classList.replace('bg-slate-100', 'bg-green-100')
+        card.classList.replace('border-slate-200', 'border-green-200')
+        message.innerText = "YAYYYY! Correct"
+        setTimeout(() => {
+          currentIndex++
+          renderQuestion()
+        }, 1000)
+      }
+      else {
+        button.classList.replace('bg-slate-300', 'bg-red-300')
+        button.classList.replace('cursor-pointer', 'cursor-not-allowed')
+        button.classList.remove('active:scale-98', 'hover:scale-110')
+        message.innerText = "EHHH! Try Again"
+      }
+    }
+
+
+    renderQuestion(questions)
+  </script>
 </body>
 
 </html>
