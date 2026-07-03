@@ -6,11 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Flip Flip</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <style>
     .flipcard {
       background-color: transparent;
       width: 200px;
       height: 300px;
+    }
+
+    #card-container {
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 20px;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     .cardinner {
@@ -37,70 +48,75 @@
       align-items: center;
       backface-visibility: hidden;
       border-radius: 12px;
+      background-image:
+        url('img/card-texture.jpeg'),
+        linear-gradient(145deg, #9d0909, #7b1d1d);
+      background-blend-mode: overlay;
+      background-size: cover;
     }
 
     .matched {
-      box-shadow: 0 0 0px 10px #86efac;
+      box-shadow: 0 0 0px 4px #86efac;
       border-radius: 12px;
     }
 
     .cardfront {
-      background-color: #ffa7a7;
-      color: rgb(255, 255, 255);
-      font-size: 120px;
+      background-color: #f19b9b;
+      transform: translateZ(0);
     }
 
     .cardback {
-      color: white;
       transform: rotateY(180deg);
+      background-color: antiquewhite;
+      font-family: "Press Start 2P", system-ui;
+      font-weight: 300;
+      font-style: normal;
+    }
+
+    .card-border {
+      position: absolute;
+      inset: 16px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cardfront .card-border {
+      border: 3px solid whitesmoke;
+    }
+
+    .icon-front {
+      font-size: 90px;
+      color: white;
+      margin: 0;
+    }
+
+    .icon {
+      font-size: 60px;
+    }
+
+    .red {
+      color: rgb(198, 30, 55);
+    }
+
+    .red .card-border {
+      border: 3px solid rgb(198, 30, 55);
+    }
+
+    .black {
+      color: black;
+    }
+
+    .black .card-border {
+      border: 3px solid black;
     }
   </style>
 </head>
 
 <body>
-  <div class="relative flex justify-center">
-    <div class="absolute left-30 top-20">
-      <p id="counter">Total Flips: 0</p>
-    </div>
-
-    <div class="max-w-2xl flex flex-wrap gap-8 mt-2">
-      <div class="flipcard">
-        <div class="cardinner" data-type="cat">
-          <div class="cardfront">✧</div>
-          <div class="cardback bg-purple-600">Cat</div>
-        </div>
-      </div>
-      <div class="flipcard">
-        <div class="cardinner" data-type="dog">
-          <div class="cardfront">✧</div>
-          <div class="cardback bg-yellow-800">Dog</div>
-        </div>
-      </div>
-      <div class="flipcard">
-        <div class="cardinner" data-type="fox">
-          <div class="cardfront">✧</div>
-          <div class="cardback bg-orange-600">Fox</div>
-        </div>
-      </div>
-      <div class="flipcard">
-        <div class="cardinner" data-type="dog">
-          <div class="cardfront">✧</div>
-          <div class="cardback bg-yellow-800">Dog</div>
-        </div>
-      </div>
-      <div class="flipcard">
-        <div class="cardinner" data-type="fox">
-          <div class="cardfront">✧</div>
-          <div class="cardback bg-orange-600">Fox</div>
-        </div>
-      </div>
-      <div class="flipcard">
-        <div class="cardinner" data-type="cat">
-          <div class="cardfront">✧</div>
-          <div class="cardback bg-purple-600">Cat</div>
-        </div>
-      </div>
-    </div>
+  <p id="counter">Total Flips: 0</p>
+  <div class="relative flex justify-center" id="card-container">
   </div>
   <script src="./flipcards.js"></script>
 </body>
