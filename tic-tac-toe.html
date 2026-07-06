@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic-Tac-Toe</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+  <style>
+    @keyframes scalePulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+    }
+
+    .pulse {
+      animation: scalePulse 0.8s ease-in-out infinite;
+    }
+
+    h1 {
+      font-family: "Quicksand", sans-serif;
+      font-optical-sizing: auto;
+      font-weight: 700;
+      font-style: normal;
+      font-size: 50px;
+      opacity: 0.9;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      position: relative;
+    }
+
+    .grid {
+      width: 160px;
+      height: 160px;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+    }
+
+    .inner {
+      position: absolute;
+      inset: 14px;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .grid:hover .inner {
+      background-color: rgb(242, 242, 255);
+    }
+
+    .grid:active .inner {
+      transform: scale(0.95);
+    }
+
+    .container.gameover .grid:hover .inner {
+      background-color: transparent;
+    }
+  </style>
+</head>
+
+<body class="flex flex-col justify-center items-center h-screen m-0">
+  <h1 class="text-slate-500"><span class="text-blue-400">Tic</span>-<span class="text-purple-400">Tac</span>-<span
+      class="text-red-400">Toe</span></h1>
+
+  <div class="container max-w-[480px]">
+    <!-- grid line SVG, sits behind the cells -->
+    <svg id="lines" class="absolute inset-0 w-full h-full" viewBox="0 0 480 480" style="z-index: 0;">
+      <line x1="160" y1="15" x2="160" y2="465" stroke="#93c5fd" stroke-width="18" stroke-linecap="round" />
+      <line x1="320" y1="15" x2="320" y2="465" stroke="#93c5fd" stroke-width="18" stroke-linecap="round" />
+      <line x1="15" y1="160" x2="465" y2="160" stroke="#93c5fd" stroke-width="18" stroke-linecap="round" />
+      <line x1="15" y1="320" x2="465" y2="320" stroke="#93c5fd" stroke-width="18" stroke-linecap="round" />
+    </svg>
+
+    <div class="grid">
+      <div class="inner"></div>
+    </div>
+    <div class="grid">
+      <div class="inner"></div>
+    </div>
+    <div class="grid">
+      <div class="inner"></div>
+    </div>
+    <div class="grid">
+      <div class="inner"></div>
+    </div>
+    <div class="grid">
+      <div class="inner"></div>
+    </div>
+    <div class="grid">
+      <div class="inner"></div>
+    </div>
+    <div class="grid">
+      <div class="inner"></div>
+    </div>
+    <div class="grid">
+      <div class="inner"></div>
+    </div>
+    <div class="grid">
+      <div class="inner"></div>
+    </div>
+  </div>
+
+  <p class="mt-3 text-xl text-slate-600 bg-slate-200 px-4 py-2 rounded-lg" id="turn">Player X's Turn</p>
+  <script src="./tic-tac-toe.js"></script>
+</body>
+
+</html>

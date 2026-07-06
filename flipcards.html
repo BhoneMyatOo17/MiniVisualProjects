@@ -73,6 +73,10 @@
       font-style: normal;
     }
 
+    #counter {
+      font-family: "Press Start 2P", system-ui;
+    }
+
     .card-border {
       position: absolute;
       inset: 16px;
@@ -115,8 +119,17 @@
 </head>
 
 <body>
-  <p id="counter">Total Flips: 0</p>
-  <div class="relative flex justify-center" id="card-container">
+  <div class="relative max-h-screen overflow-hidden">
+    <div class="absolute top-10 left-18 z-10">
+      <div
+        class="p-8 bg-sky-100 border-2 border-sky-300 rounded-md font-medium text-slate-800 flex flex-col text-center">
+        <p class="mb-2">Total Flips</p>
+        <p id="counter" class="text-xl text-slate-600">0</p>
+      </div>
+
+    </div>
+    <div class="relative flex justify-center" id="card-container">
+    </div>
   </div>
   <script src="./flipcards.js"></script>
 </body>

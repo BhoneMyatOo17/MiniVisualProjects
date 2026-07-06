@@ -1,4 +1,4 @@
- let matchedcount = 0
+let matchedcount = 0
  const carddata = [
   {
     number:8,
@@ -37,7 +37,7 @@
     const counterP = document.getElementById('counter')
     const cardcontainer = document.getElementById('card-container')
     function updateCount() {
-      counterP.innerText = "Total Flips: " + counter
+      counterP.innerText = counter
     }
 
     function checkMatched(){
@@ -150,6 +150,3 @@
     }
 
     renderCards()
-
-
-   
