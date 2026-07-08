@@ -40,7 +40,7 @@ cells.forEach((cell, index) => {
     board[index] = isPlayerX ? "X" : "O"
     if (isPlayerX) {
       innerdiv.innerHTML = drawX()
-      message.innerText = "Player 0's Turn"
+      message.innerText = "Player O's Turn"
     } else {
       innerdiv.innerHTML = drawO()
       message.innerText = "Player X's Turn"
@@ -57,22 +57,31 @@ function checkWinning() {
     const b = combo[1]
     const c = combo[2]
     if (board[a] === board[b] && board[b] === board[c] && board[a] !== "") {
-      message.innerText = `Player ${board[a]} Won`
+      message.innerText = `Player ${board[a]} Won!`
       gameOver = true
       document.querySelector('.container').classList.add('gameover')
       message.classList.replace('bg-slate-200', 'bg-green-200')
-      setTimeout(() => {
-        message.innerText = "Restart Game"
-        message.classList.replace('bg-green-200', 'bg-purple-200')
-        message.classList.add('cursor-pointer', 'pulse')
-        message.addEventListener('click', () => {
-          if (gameOver) {
-            resetBoard()
-          }
-        })
-      }, 1000)
       drawWinningLine(combo)
+      combo.forEach(index => {
+        cells[index].querySelector('.inner').classList.add('pulse')
+      })
+      setTimeout(() => {
+        alert(`Player ${board[a]} Won!`)
+        resetBoard()
+      }, 1200)
+      return
     }
+  }
+
+  if (board.every(cell => cell !== "")) {
+    message.innerText = "It's a Tie!"
+    gameOver = true
+    document.querySelector('.container').classList.add('gameover')
+    message.classList.replace('bg-slate-200', 'bg-yellow-200')
+    setTimeout(() => {
+      alert("It's a Tie!")
+      resetBoard()
+    }, 300)
   }
 }
 function getCoords(index) {
@@ -107,17 +116,15 @@ function resetBoard() {
   cells.forEach(cell => {
     const innerdiv = cell.querySelector('.inner')
     innerdiv.innerHTML = ""
+    innerdiv.classList.remove('pulse')
   })
   const winLine = document.getElementById('winLine')
   if (winLine) {
     winLine.remove()
   }
-  document.getElementById('lines').querySelectorAll('line:not(#winLineTemplate)')
   message.innerText = "Player X's Turn"
 
   document.querySelector('.container').classList.remove('gameover')
-  message.classList.remove('cursor-pointer', 'pulse')
-  message.classList.replace('bg-purple-200', 'bg-slate-200')
-  message.innerText = "Player X's Turn"
-
+  message.classList.remove('bg-green-200', 'bg-yellow-200')
+  message.classList.add('bg-slate-200')
 }

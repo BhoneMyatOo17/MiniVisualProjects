@@ -1,4 +1,4 @@
- let isPinned = false
+let isPinned = false
     let isSwiched = false
     const pinned = []
 

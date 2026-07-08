@@ -129,7 +129,7 @@ function renderCompletion() {
 
   const restartButton = document.createElement('button')
   restartButton.innerText = "Play Again"
-  restartButton.classList.add('btn', 'hover:scale-110', 'transition-all', 'duration-200', 'cursor-pointer', 'col-span-4')
+  restartButton.classList.add('btn', 'hover:scale-110', 'transition-all', 'duration-200', 'cursor-pointer', 'col-span-2', 'md:col-span-4')
   restartButton.addEventListener('click', () => {
     currentIndex = 0
     renderQuestion()
